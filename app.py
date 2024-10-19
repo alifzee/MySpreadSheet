@@ -3,7 +3,7 @@ import pandas as pd
 
 # Set page title and layout
 st.set_page_config(page_title="Spreadsheet App 1.0", layout="wide")
-st.title("📊 Spreadsheet App")
+st.title("📊 Spreadsheet App 1.0")
 
 # Initialize the DataFrame
 if 'data' not in st.session_state:
