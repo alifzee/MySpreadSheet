@@ -38,16 +38,7 @@ with st.sidebar:
         average_value = st.session_state.data.iloc[:, col_index].astype(float).mean()
         st.write(f"Average of Column {col_index + 1}: {average_value}")
 
-# User can resize column widths and row heights
-column_widths = []
-for i in range(100):
-    width = st.slider(f"Width for Column {i+1} (px)", 50, 300, 100, key=f'col_width_{i}')
-    column_widths.append(width)
 
-row_heights = []
-for i in range(100):
-    height = st.slider(f"Height for Row {i+1} (px)", 20, 100, 40, key=f'row_height_{i}')
-    row_heights.append(height)
 
 # Create a container to hold the input fields
 cell_inputs = []
@@ -65,6 +56,17 @@ for i in range(100):
     for j in range(100):
         st.session_state.data.iloc[i, j] = cell_inputs[i][j]
 
+# User can resize column widths and row heights
+column_widths = []
+for i in range(100):
+    width = st.slider(f"Width for Column {i+1} (px)", 50, 300, 100, key=f'col_width_{i}')
+    column_widths.append(width)
+
+row_heights = []
+for i in range(100):
+    height = st.slider(f"Height for Row {i+1} (px)", 20, 100, 40, key=f'row_height_{i}')
+    row_heights.append(height)
+    
 # Apply custom CSS styles for resizing
 st.markdown(resize_columns(column_widths), unsafe_allow_html=True)
 st.markdown(resize_rows(row_heights), unsafe_allow_html=True)
