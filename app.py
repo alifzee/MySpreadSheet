@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 
 # Set page title and layout
-st.set_page_config(page_title="Spreadsheet App", layout="wide")
-st.title("📊 Spreadsheet App")
+st.set_page_config(page_title="Spreadsheet App 2.0", layout="wide")
+st.title("📊 Spreadsheet App 2.0")
 
 # Initialize the DataFrame
 if 'data' not in st.session_state:
@@ -57,12 +57,14 @@ def resize_columns(widths):
 # Function to resize rows
 def resize_rows(heights):
     return f"<style>{''.join([f'tr:nth-child({i+1}) {{ height: {height}px; }}' for i, height in enumerate(heights)])}</style>"
-# Apply custom CSS styles for resizing
-st.markdown(resize_columns(column_widths), unsafe_allow_html=True)
-st.markdown(resize_rows(row_heights), unsafe_allow_html=True)
+    
 
 # Display the DataFrame as a table
 st.dataframe(st.session_state.data.style.set_table_attributes('style="width: 100%;"'))
+
+# Apply custom CSS styles for resizing
+st.markdown(resize_columns(column_widths), unsafe_allow_html=True)
+st.markdown(resize_rows(row_heights), unsafe_allow_html=True)
 
 # Placeholder for file operations
 if file_option == "Save File":
