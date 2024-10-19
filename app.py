@@ -39,8 +39,15 @@ with st.sidebar:
         st.write(f"Average of Column {col_index + 1}: {average_value}")
 
 # User can resize column widths and row heights
-column_widths = st.slider("Column Widths (px)", 50, 300, 100, 10, key='col_widths', format="%.0f", value=(100,) * 100)
-row_heights = st.slider("Row Heights (px)", 20, 100, 40, 5, key='row_heights', format="%.0f", value=(40,) * 100)
+column_widths = []
+for i in range(100):
+    width = st.slider(f"Width for Column {i+1} (px)", 50, 300, 100, key=f'col_width_{i}')
+    column_widths.append(width)
+
+row_heights = []
+for i in range(100):
+    height = st.slider(f"Height for Row {i+1} (px)", 20, 100, 40, key=f'row_height_{i}')
+    row_heights.append(height)
 
 # Apply custom CSS styles for resizing
 st.markdown(resize_columns(column_widths), unsafe_allow_html=True)
