@@ -5,8 +5,8 @@ COL_CNT = 5
 ROW_CNT = 5
 
 # Set page title and layout
-st.set_page_config(page_title="Spreadsheet App 2.0", layout="wide")
-st.title("📊 Spreadsheet App 2.0")
+st.set_page_config(page_title="Spreadsheet App 3.0", layout="wide")
+st.title("📊 Spreadsheet App 3.0")
 
 # Initialize the DataFrame
 if 'data' not in st.session_state:
