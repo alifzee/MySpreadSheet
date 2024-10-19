@@ -49,6 +49,22 @@ for i in range(100):
     height = st.slider(f"Height for Row {i+1} (px)", 20, 100, 40, key=f'row_height_{i}')
     row_heights.append(height)
 
+# Create a container to hold the input fields
+cell_inputs = []
+
+# Create a grid of text inputs for the spreadsheet
+for i in range(100):
+    row_inputs = []
+    for j in range(100):
+        value = st.text_input(f"Cell ({i+1},{j+1})", value=st.session_state.data.iloc[i, j], key=f"cell_{i}_{j}")
+        row_inputs.append(value)
+    cell_inputs.append(row_inputs)
+
+# Update the DataFrame with the current values from the input fields
+for i in range(100):
+    for j in range(100):
+        st.session_state.data.iloc[i, j] = cell_inputs[i][j]
+
 # Apply custom CSS styles for resizing
 st.markdown(resize_columns(column_widths), unsafe_allow_html=True)
 st.markdown(resize_rows(row_heights), unsafe_allow_html=True)
