@@ -1,13 +1,16 @@
 import streamlit as st
 import pandas as pd
 
+COL_CNT = 5
+ROW_CNT = 5
+
 # Set page title and layout
 st.set_page_config(page_title="Spreadsheet App 2.0", layout="wide")
 st.title("📊 Spreadsheet App 2.0")
 
 # Initialize the DataFrame
 if 'data' not in st.session_state:
-    st.session_state.data = pd.DataFrame('', index=range(100), columns=[f'Column {i+1}' for i in range(100)])
+    st.session_state.data = pd.DataFrame('', index=range(COL_CNT), columns=[f'Column {i+1}' for i in range(ROW_CNT)])
 
 
 
@@ -20,33 +23,33 @@ with st.sidebar:
     func_option = st.selectbox("Choose a function", ["Add Row", "Add Column", "Average Row", "Average Column"])
     
     if func_option == "Add Row":
-        st.session_state.data.loc[len(st.session_state.data)] = [''] * 100
+        st.session_state.data.loc[len(st.session_state.data)] = [''] * ROW_CNT
     elif func_option == "Add Column":
         st.session_state.data[f'Column {len(st.session_state.data.columns) + 1}'] = [''] * len(st.session_state.data)
     elif func_option == "Average Row":
-        row_index = st.number_input("Select Row to Average (1-100)", 1, 100) - 1
+        row_index = st.number_input("Select Row to Average (1-ROW_CNT)", 1, ROW_CNT) - 1
         average_value = st.session_state.data.iloc[row_index].astype(float).mean()
         st.write(f"Average of Row {row_index + 1}: {average_value}")
     elif func_option == "Average Column":
-        col_index = st.number_input("Select Column to Average (1-100)", 1, 100) - 1
+        col_index = st.number_input("Select Column to Average (1-COL_CNT)", 1, COL_CNT) - 1
         average_value = st.session_state.data.iloc[:, col_index].astype(float).mean()
         st.write(f"Average of Column {col_index + 1}: {average_value}")
 
 # User can resize column widths and row heights
 column_widths = []
-for i in range(100):
+for i in range(COL_CNT):
     width = st.slider(f"Width for Column {i+1} (px)", 50, 300, 100, key=f'col_width_{i}')
     column_widths.append(width)
 
 row_heights = []
-for i in range(100):
+for i in range(ROW_CNT):
     height = st.slider(f"Height for Row {i+1} (px)", 20, 100, 40, key=f'row_height_{i}')
     row_heights.append(height)
 
 # Display input fields in a table format
-for i in range(100):
-    cols = st.columns(100)
-    for j in range(100):
+for i in range(ROW_CNT):
+    cols = st.columns(COL_CNT)
+    for j in range(ROW_CNT):
         value = st.text_input(f"Cell ({i+1},{j+1})", value=st.session_state.data.iloc[i, j], key=f"cell_{i}_{j}", placeholder="")
         st.session_state.data.iloc[i, j] = value
 
